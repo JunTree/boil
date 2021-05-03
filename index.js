@@ -1,13 +1,16 @@
 const express = require('express')
 const app = express()
 const port = 5000
+
 const {User} = require("./models/User");
 const mongoose = require('mongoose')
+
+const config = require('./config/key');
 
 app.use(express.urlencoded());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://juntree:juntree1928@boilerplate.cy8kd.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
 } ).then(() => console.log('MongoDB Connected...'))
    .catch(err => console.log(err))
