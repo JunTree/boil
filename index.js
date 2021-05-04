@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const port = 5000
-
 const {User} = require("./models/User");
 const mongoose = require('mongoose')
 
@@ -16,7 +15,8 @@ mongoose.connect(config.mongoURI, {
    .catch(err => console.log(err))
 
 
-app.get('/', (req, res) => { res.send('Hello World! ') })
+app.get('/', (req, res) => { res.send('Hello World! 하이!') })
+
 
 app.post('/register', (req, res)=>{
     //회원 가입 할 때 필요한 정보들을 client에서 가져오면
@@ -37,4 +37,4 @@ app.post('/register', (req, res)=>{
 
 
 
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`))
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
