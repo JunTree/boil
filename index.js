@@ -3,7 +3,7 @@ const app = express()
 const cookieParser = require('cookie-parser');
 const config = require('./config/key');
 const {User} = require('./models/User');
-//const {auth} = require('./middleware/auth');
+const {auth} = require('./middleware/auth');
 
 
 app.use(express.urlencoded());
@@ -61,11 +61,24 @@ app.post('/api/users/login', (req, res)=>{
                 res.cookie("x_auth", user.token)
                     .status(200)
                     .json({ loginSuccess: true, userId: user._id})
-
-
             })
         })
     })
+})
+
+app.get('/api/user/auth', auth, (req, res) => {
+    // 여기까지 미들웨어를 통과한 것은 Authentication 이 True
+    res.status(200).json({
+        _id: req.user._id,
+        isAdmin: req.user.role === 0 ? false : true,
+        isAuth: true,
+        email: req.user.email,
+        name: req.user.name,
+        lastname: req.user.lastname,
+        role: req.user.role,
+        image: req.user.image
+    })
+
 })
 
 
